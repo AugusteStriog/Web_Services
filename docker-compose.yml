@@ -1,0 +1,19 @@
+version: '3'
+services:
+  internet_store:
+    build: ./Internet_Store
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./Internet_Store:/app
+    environment:
+      - NAME=World
+
+  plant_shop:
+    container_name: plant_shop
+    build: ./plants_shop
+    ports:
+      - "80:5000"
+    command: python app.py
+    volumes:
+      - ./plants_shop:/code
