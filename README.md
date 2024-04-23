@@ -94,11 +94,11 @@ Delete a shop:
 
 Unasign user from an item: 
 
-```curl -X DELETE http://localhost:5000/items/1/user```
+```curl -X DELETE http://localhost:5000/items/1/user/1```
 
 Unasign item from a shop:
 
-```curl -X DELETE http://localhost:5000/items/1/shop```
+```curl -X DELETE http://localhost:5000/items/1/shop/1```
 
 # Plant Shop
 
