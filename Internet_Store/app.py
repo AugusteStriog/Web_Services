@@ -83,8 +83,8 @@ def create_shop():
     return jsonify(new_shop.__dict__), 201
 
 #Assign item to user
-@app.put('/items/<int:item_id>/assign/user/<int:user_id>')
-def assign_item_to_user(item_id, user_id):
+@app.put('/items/<int:item_id>/user/<int:user_id>')
+def assign_item_user(item_id, user_id):
     item = next((item for item in items if item.id == item_id), None)
     if not item:
         return jsonify({'error': 'Item not found'}), 404
@@ -94,21 +94,22 @@ def assign_item_to_user(item_id, user_id):
         return jsonify({'error': 'User not found'}), 404
 
     item.buyer_id = user_id
-    return jsonify({'message': f'Item {item_id} assigned to user {user_id}'}), 200
+    return '', 204
+
 
 #Assign item to a shop
-@app.put('/items/<int:item_id>/assign/shop/<int:shop_id>')
-def assign_item_to_shop(item_id, shop_id):
+@app.put('/items/<int:item_id>/shop/<int:shop_id>')
+def assign_item_shop(item_id, shop_id):
     item = next((item for item in items if item.id == item_id), None)
     if not item:
         return jsonify({'error': 'Item not found'}), 404
-    
+
     shop = next((shop for shop in shops if shop.id == shop_id), None)
     if not shop:
         return jsonify({'error': 'Shop not found'}), 404
 
     item.shop_id = shop_id
-    return jsonify({'message': f'Item {item_id} assigned to shop {shop_id}'}), 200
+    return '', 204
 
 #Update an item
 @app.put('/items/<int:item_id>')
@@ -175,7 +176,7 @@ def delete_item(item_id):
 
     del items[item_index]
 
-    return jsonify({'message': 'Item deleted successfully'}), 200
+    return '', 204
 
 #Delete user    
 @app.delete('/users/<int:user_id>')
@@ -187,7 +188,7 @@ def delete_user(user_id):
 
     del users[user_index]
 
-    return jsonify({'message': 'User deleted successfully'}), 200
+    return '', 204
 
 #Delete shop
 @app.delete('/shops/<int:shop_id>')
@@ -199,27 +200,36 @@ def delete_shop(shop_id):
 
     del shops[shop_index]
 
-    return jsonify({'message': 'Shop deleted successfully'}), 200
+    return '', 204
 
 
 #Unassign item from user
-@app.delete('/items/<int:item_id>/unassign/user')
-def unassign_user_from_item(item_id):
+@app.delete('/items/<int:item_id>/user/<int:user_id>')
+def clear_user_from_item(item_id, user_id):
     item = next((item for item in items if item.id == item_id), None)
-    if not item or item.buyer_id is None:
-        return jsonify({'error': 'Item not found or no user assigned'}), 404
+    if not item:
+        return jsonify({'error': 'Item not found'}), 404
+    
+    if item.buyer_id != user_id:
+        return jsonify({'error': 'Item unassigned to the user'}), 404
+   
+    item.buyer_id = None
+    return '', 204
 
-    item.buyer_id = None  
-    return jsonify({'message': f'User unassigned from item {item_id}'}), 200
 
-@app.delete('/items/<int:item_id>/unassign/shop')
-def unassign_item_from_shop(item_id):
+#Unassign item from shop
+@app.delete('/items/<int:item_id>/shop/<int:shop_id>')
+def unassign_item_from_shop(item_id, shop_id):
     item = next((item for item in items if item.id == item_id), None)
-    if not item or item.shop_id is None:
-        return jsonify({'error': 'Item not found or no shop assigned'}), 404
+    if not item:
+        return jsonify({'error': 'Item not found'}), 404
+
+    if item.shop_id != shop_id:
+        return jsonify({'error': 'Item not unassigned to the shop'}), 404
 
     item.shop_id = None  
-    return jsonify({'message': f'Item {item_id} unassigned from shop'}), 200
+    return '', 204
+
 
 
 if __name__ == '__main__':
