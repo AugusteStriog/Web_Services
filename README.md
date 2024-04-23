@@ -70,11 +70,11 @@ Update a shop:
 
 Assign user to an item: 
 
-```curl -X PUT http://localhost:5000/items/1/assign/user/1 ```
+```curl -X PUT http://localhost:5000/items/1/user/1 ```
 
 Assign item to a shop: 
 
-```curl -X PUT http://localhost:5000/items/1/assign/shop/1```
+```curl -X PUT http://localhost:5000/items/1/shop/1```
 
 ### DELETE 
 
@@ -94,11 +94,11 @@ Delete a shop:
 
 Unasign user from an item: 
 
-```curl -X DELETE http://localhost:5000/items/1/unassign/user```
+```curl -X DELETE http://localhost:5000/items/1/user```
 
 Unasign item from a shop:
 
-```curl -X DELETE http://localhost:5000/items/1/unassign/shop```
+```curl -X DELETE http://localhost:5000/items/1/shop```
 
 # Plant Shop
 
