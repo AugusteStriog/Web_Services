@@ -205,7 +205,7 @@ def delete_shop(shop_id):
 
 #Unassign item from user
 @app.delete('/items/<int:item_id>/user/<int:user_id>')
-def clear_user_from_item(item_id, user_id):
+def unassign_user_from_item(item_id, user_id):
     item = next((item for item in items if item.id == item_id), None)
     if not item:
         return jsonify({'error': 'Item not found'}), 404
