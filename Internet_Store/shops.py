@@ -4,7 +4,7 @@ class Shop:
         self.address = address
 
 shops = [
-    Shop(1, "Central 33"),
-    Shop(2, "Downtown 56"),
-    Shop(3, "Main Street 105"),
+    Shop(1, "Downtown 11"),
+    Shop(2, "Central 22"),
+    Shop(3, "Main Street 33"),
 ]
