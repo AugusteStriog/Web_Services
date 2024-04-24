@@ -211,7 +211,7 @@ def unassign_user_from_item(item_id, user_id):
         return jsonify({'error': 'Item not found'}), 404
     
     if item.buyer_id != user_id:
-        return jsonify({'error': 'Item unassigned to the user'}), 404
+        return jsonify({'error': 'User not found'}), 404
    
     item.buyer_id = None
     return '', 204
@@ -225,7 +225,7 @@ def unassign_item_from_shop(item_id, shop_id):
         return jsonify({'error': 'Item not found'}), 404
 
     if item.shop_id != shop_id:
-        return jsonify({'error': 'Item not unassigned to the shop'}), 404
+        return jsonify({'error': 'Shop not found'}), 404
 
     item.shop_id = None  
     return '', 204
