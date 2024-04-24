@@ -1,6 +1,8 @@
 # To launch web service:
 
-```git clone cd Web_Services```
+```git clone```
+
+```cd Web_Services```
 
 ```docker-compose up```
 
